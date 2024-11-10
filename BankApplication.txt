@@ -1,0 +1,298 @@
+package BankApplication;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class LaxmiChitFund {
+	
+	static String username;     // It change
+	static Long mobile;         // also change
+	static String pan;
+	static long adhar;
+	static String address;       // it change
+	static int pin;              // its also change
+	static double bal;         
+	final static long accountNumber=38111717602l;
+	final static String IFSCCODE="LCF1234";
+	static ArrayList<String> statement=new ArrayList<>();
+
+	public static void main(String[] args) {
+
+             welcome();		
+
+	}
+	
+	public static void welcome() {
+		
+		for(;;) {
+			
+			Scanner sc=new Scanner(System.in);
+			System.out.println();
+			System.out.println(" ***** Welcome to Laxmi Chit Fund Bank *******");
+			System.out.println();
+			
+			System.out.println("1.Existing User ");
+			System.out.println("2.Create Bank Account");
+			
+			int option=sc.nextInt();
+			
+			switch(option)
+			{
+			case 1: Login(sc);break;
+			case 2: createAccount(sc); break;
+			default: System.out.println("Wrong Option entered");
+			
+			}
+			
+			
+			
+		}
+	}
+	
+	public static void Login(Scanner sc) {
+		
+		 if(username!=null) {
+			 for(int i=1;i<=3;i++) {
+				 System.out.println();
+				 System.out.println("****** Login Module *******");
+                 System.out.println();
+                 
+                 System.out.println("Mobile  :");
+                 long mobile1=sc.nextLong();
+                 
+                 System.out.println("Pin :");
+                 int pin1=sc.nextInt();
+                 
+                 if((mobile==mobile1)&& (pin1==pin)) {
+                	 homePage(sc);
+                 }
+                 else {
+					System.out.println();
+					System.out.println("wrong credential entered");
+					System.out.println();
+				}
+			 }
+			 System.exit(0);
+		 }
+		 else {
+			System.out.println();
+			System.out.println("Create account first ");
+		}
+		
+	}
+  public static void createAccount(Scanner sc) {
+		
+	               System.out.println();
+	               System.out.println(" Username :");
+	               sc.nextLine();
+	               
+	               username=sc.nextLine();
+	               System.out.println("mobile Number :");
+	               mobile=sc.nextLong();
+	               
+	               System.out.println("adhar :");
+	               adhar=sc.nextLong();
+	               
+	               System.out.println("Pan card ");
+	               pan=sc.next();
+	               
+	               System.out.println("address :");
+	               sc.nextLine();
+	               address=sc.nextLine();
+	               
+	               System.out.println("Pin ");
+	               pin=sc.nextInt();
+	               
+	               System.out.println("Enter amount to Deposit :");
+	               bal=sc.nextDouble();
+	               statement.add("Deposit :"+bal);
+	               
+	               
+	               System.out.println();
+	               System.out.println("Account Created successfully ");
+	               System.out.println();
+	               
+	               
+	               
+	}
+  
+  public static void homePage(Scanner sc) {
+	  
+	  for(;;)
+	  {
+		  System.out.println();
+		  System.out.println(" ***** Home Page Modules***********");
+		  System.out.println();
+		  System.out.println("1.Deposit Amount");
+		  System.out.println("2.withdraw Amount");
+          System.out.println("3.check Amount");
+          System.out.println("4. statement");
+          System.out.println("5. Edit Profile ");
+          System.out.println("6.Logout");
+          System.out.println();
+          
+          int option=sc.nextInt();
+          System.out.println();
+          
+          switch(option) {
+          
+          case 1:deposit(sc);break;
+          case 2:withdraw(sc);break;
+          case 3:checkBalance(sc);break;
+          case 4:statement();break;
+          case 5:editProfile(sc);break;
+          case 6:System.exit(0);
+          default: System.out.println("wrong option entered");
+          }
+          
+	  }
+  }
+  
+  public static void deposit(Scanner sc) {
+	  
+	  
+	  System.out.println("***** Deposit Amount **** ");
+	  System.out.println();
+	  System.out.println("enter the amount :");
+	  double depositAmount=sc.nextDouble();
+	  bal+=depositAmount;
+	  statement.add("deposit :"+depositAmount);
+	  System.out.println();
+	  System.out.println("Amount Deposited Successfully");
+	  
+	  
+  }
+ public static void withdraw(Scanner sc) {
+	  
+	 
+	 for(int i=1;i<=3;i++){
+		 
+		 System.out.println();
+		 System.out.println("*****withdraw Amount *******");
+		 System.out.println();
+		 System.out.println("enter the amount :");
+		 double withdrawAmount=sc.nextDouble();
+		 System.out.println("enter a pin :");
+		 int pin1=sc.nextInt();
+		 
+		 if(pin1==pin) {
+			 
+			 if(withdrawAmount<=bal) {
+				 
+				 bal-=withdrawAmount;
+				 statement.add("withdraw :"+withdrawAmount);
+				 System.out.println("amount debited successfully");
+			 }
+			 else {
+				System.out.println("Insufficient funds");
+			}
+			 return;
+		 }
+		 else {
+			System.out.println();
+			System.out.println("Wrong pin entered");
+		}
+	 }
+	 System.out.println();
+	 System.out.println("your account has been deactivated 24 hours");
+	 System.exit(0);
+  }
+ public static void checkBalance(Scanner sc) {
+	 
+	 
+	 for(int i=1;i<=3;i++) {
+		 System.out.println("*********check balance *******");
+		 System.out.println("enter a Pin :");
+		 int pin1=sc.nextInt();
+		 
+		 if(pin1==pin) {
+			 System.out.println();
+			 System.out.println("Account balance is :"+bal+" Rs");
+			 return;
+		 }
+		 else {
+			System.out.println("Wrong pin entered .");
+		}
+		 
+	 }
+	 System.out.println();
+	 System.out.println("your account has been deactivated 24 hours");
+	 System.exit(0);
+	 
+	  
+ }
+ public static void statement() {
+	 
+	 System.out.println("****** Statement ********");
+	 System.out.println();
+	 for(String trans:statement) {
+		 System.out.println(trans);
+	 }
+	  
+ }
+ public static void editProfile(Scanner sc) {
+	
+	 
+	 System.out.println();
+	 System.out.println("1 .Username: ");
+     System.out.println("2.Mobile Number");
+     System.out.println("3.address");
+     System.out.println("4.Pin");
+     
+     int option=sc.nextInt();
+     
+ 
+  
+     
+     
+     switch(option) {
+      
+     
+    	 
+     
+     case 1: System.out.println("enter a new Username ;");
+             username=sc.next();
+             break;
+     case 2: System.out.println("enter your previous Mobile Number :");
+             long mobile1=sc.nextLong();
+             if(mobile1==mobile) {
+            	 System.out.println("please enter a new Mobile number ");
+            	 long mobile2=sc.nextLong();
+            	 break;
+             }
+             else {
+				System.out.println("sorry your mobile number is not mathced .");
+			}
+            break;
+           
+            
+     case 3:System.out.println("enter your new Address :");
+            address=sc.next();
+            break;
+            
+     case 4: System.out.println("enter your previous Pin :");
+             int pin1=sc.nextInt();
+             if(pin1==pin) {
+            	 System.out.println("so we can change the pin :");
+            	 System.out.println("enter a new Pin :");
+            	 pin=sc.nextInt();
+            	return;
+             }
+             else {
+				System.out.println("Sorry you entered Wrong Pin try again");
+			}
+             break;
+             
+      default: System.out.println("you are enter Wrong Choice ");
+      
+     }
+     
+     
+    
+   
+	 
+     
+	 
+ }
+ 
+}
